@@ -5,6 +5,7 @@ const nameInput = document.getElementById("name");
 const button = document.getElementById("submitButton");
 const status = document.getElementById("status");
 const nameTrack = document.getElementById("nameTrack");
+const visitorCount = document.getElementById("visitorCount");
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -31,6 +32,8 @@ function loadNames() {
     })
     .then((names) => {
       const safeNames = Array.isArray(names) ? names.filter((n) => typeof n === "string" && n.trim()) : [];
+      visitorCount.value = safeNames.length;
+      visitorCount.textContent = safeNames.length;
       if (!safeNames.length) { nameTrack.innerHTML = '<p class="loading">First request-a neenga pannunga!</p>'; return; }
       const items = safeNames.map((name) => `<div class="name-item">${escapeHtml(name)}</div>`).join("");
       nameTrack.innerHTML = items + items;
