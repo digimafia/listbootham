@@ -23,20 +23,22 @@ form.addEventListener("submit", async (event) => {
 
 function loadNames() {
   if (GOOGLE_APPS_SCRIPT_URL.includes("PASTE_YOUR")) return;
-  const callback = "boothamNames";
-  window[callback] = (names) => {
-    document.getElementById("bootham-jsonp")?.remove();
-    const safeNames = Array.isArray(names) ? names.filter(n => typeof n === "string" && n.trim()) : [];
-    if (!safeNames.length) { nameTrack.innerHTML = '<p class="loading">First request-a neenga pannunga!</p>'; return; }
-    const items = safeNames.map(name => `<div class="name-item">${escapeHtml(name)}</div>`).join("");
-    nameTrack.innerHTML = items + items;
-    nameTrack.style.setProperty("--scroll-duration", `${Math.max(12, safeNames.length * 3)}s`);
-  };
-  const script = document.createElement("script");
-  script.id = "bootham-jsonp";
-  script.src = `${GOOGLE_APPS_SCRIPT_URL}?callback=${callback}&_=${Date.now()}`;
-  script.onerror = () => { nameTrack.innerHTML = '<p class="loading">Names load aagala.</p>'; };
-  document.head.appendChild(script);
+
+  fetch(GOOGLE_APPS_SCRIPT_URL)
+    .then((response) => {
+      if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+      return response.json();
+    })
+    .then((names) => {
+      const safeNames = Array.isArray(names) ? names.filter((n) => typeof n === "string" && n.trim()) : [];
+      if (!safeNames.length) { nameTrack.innerHTML = '<p class="loading">First request-a neenga pannunga!</p>'; return; }
+      const items = safeNames.map((name) => `<div class="name-item">${escapeHtml(name)}</div>`).join("");
+      nameTrack.innerHTML = items + items;
+      nameTrack.style.setProperty("--scroll-duration", `${Math.max(12, safeNames.length * 3)}s`);
+    })
+    .catch(() => {
+      nameTrack.innerHTML = '<p class="loading">Names load aagala.</p>';
+    });
 }
 function escapeHtml(text) { const el = document.createElement("div"); el.textContent = text; return el.innerHTML; }
 loadNames();
