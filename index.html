@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#09120e">
+  <meta name="theme-color" content="#071108">
   <title>Mobile Bootham – Free Request</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="poster" aria-label="Mobile Bootham free request form">
-    <img class="poster-art" src="assets/bootham-poster.png" alt="Mobile Bootham free request poster">
+  <main class="poster" aria-label="Mobile Bootham free request form and requested name list">
+    <img class="poster-art" src="assets/bootham-final-poster.png" alt="Mobile Bootham request poster">
     <form id="nameForm" class="request-form" novalidate>
       <label class="sr-only" for="name">Name</label>
       <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="Inga peyara enter pannunga...">
       <button id="submitButton" type="submit" aria-label="Send free request"><span class="sr-only">Free Request</span></button>
       <p id="status" class="status" role="status" aria-live="polite"></p>
     </form>
+    <section class="name-list" aria-label="Requested name list">
+      <div class="list-viewport"><div id="nameTrack" class="name-track"><p class="loading">Loading names…</p></div></div>
+    </section>
   </main>
   <script src="script.js"></script>
 </body>
