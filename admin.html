@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071108">
+  <title>Mobile Bootham – Admin</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <div>
+        <p class="eyebrow">MOBILE BOOTHAM</p>
+        <h1>Name List Admin</h1>
+        <p class="subtitle">Google Sheet name list-a inga direct-ah manage pannalaam.</p>
+      </div>
+      <a class="back-link" href="./">View Website</a>
+    </header>
+
+    <section class="card add-card">
+      <form id="addForm" class="add-form">
+        <label for="newName">Add new name</label>
+        <div class="input-row">
+          <input id="newName" maxlength="80" placeholder="Name enter pannunga..." required>
+          <button id="addButton" type="submit">Add Name</button>
+        </div>
+        <p id="adminStatus" class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="card list-card">
+      <div class="list-head">
+        <div>
+          <h2>Requested Names</h2>
+          <p><span id="totalCount">0</span> names</p>
+        </div>
+        <button id="refreshButton" class="secondary" type="button">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="nameTableBody">
+            <tr><td colspan="3" class="empty">Loading names...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="editDialog">
+    <form id="editForm" method="dialog" class="dialog-card">
+      <h3>Edit name</h3>
+      <input id="editIndex" type="hidden">
+      <label for="editName">Name</label>
+      <input id="editName" maxlength="80" required>
+      <div class="dialog-actions">
+        <button id="cancelEdit" class="secondary" type="button">Cancel</button>
+        <button id="saveEdit" type="submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="admin.js"></script>
+</body>
+</html>
